@@ -1,0 +1,23 @@
+(library
+ (foreign_stubs
+  (language c)
+  (names array_stubs bytes_stubs exn_stubs float_stubs iarray_stubs int_stubs
+    int_math_stubs obj_stubs string_stubs am_testing)
+  (flags
+   :standard
+   -D_LARGEFILE64_SOURCE
+   (:include mpopcnt.sexp)))
+ (name base_stubs)
+ (public_name base_stubs)
+ (libraries)
+ (js_of_ocaml
+  (javascript_files runtime.js))
+ (preprocess no_preprocessing)
+ (wasm_of_ocaml
+  (javascript_files runtime.js)
+  (wasm_files runtime.wat)))
+
+(rule
+ (targets mpopcnt.sexp)
+ (action
+  (run ./discover/discover.exe -o %{targets})))
